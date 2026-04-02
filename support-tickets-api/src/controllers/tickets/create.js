@@ -11,7 +11,6 @@ export function create({ req, resp }) {
         status: "open",
         created_at: new Date(),
         updated_at: new Date()
-
     }
     
 
