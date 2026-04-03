@@ -1,12 +1,10 @@
 import { create } from "../controllers/tickets/create.js"
-
+import { index } from "../controllers/tickets/index.js"
 export const tickets = [
     {
         method: "GET",
         path: "/tickets",
-        controller(req, resp) {
-            return resp.end("testando!")
-        },
+        controller: index
     },
     {
         method: "POST",
