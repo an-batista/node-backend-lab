@@ -11,7 +11,8 @@ export function routeHandler(req, resp) {
 
     if(route) {
         const routeparams = req.url.match(route.path)
-        const { query } = routeparams.groups
+        const { query, ...params } = routeparams.groups
+        req.params = params
         req.query = query ? extractQueryParams(query) : {}
         return route.controller({ req, resp, database })
     }else {
