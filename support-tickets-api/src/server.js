@@ -3,7 +3,6 @@ import { jsonBodyHandler } from "./middlewares/jsonBodyHandler.js"
 import { routeHandler } from "./middlewares/routeHandler.js"
 
 const server = http.createServer( async (req, resp) => {
-    console.log("Hello World!")
     await jsonBodyHandler(req, resp)
     routeHandler(req, resp)
 })
