@@ -23,10 +23,17 @@ export class Database {
         }else {
             this.#database[table] = [data]
         }
-        this.#persist()
+        this.#persist() 
     }
-    select(table) {
-        const data = this.#database[table] ?? []
+    select(table, filters) {
+        let data = this.#database[table] ?? []
+        if(filters) {
+            data = data.filter((row) => {
+                return Object.entries(filters).some(([key, value]) => {
+                    return row[key].toLowerCase().includes(value.toLowerCase())
+                })
+            }) 
+        }
         return data
     }
 
