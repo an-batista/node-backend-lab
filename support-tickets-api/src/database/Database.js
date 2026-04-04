@@ -1,5 +1,4 @@
 import fs from "node:fs/promises"
-
 const DATABASE_PATH = new URL("db.json", import.meta.url)
 
 export class Database {
@@ -26,7 +25,7 @@ export class Database {
         this.#persist() 
     }
     select(table, filters) {
-        let data = this.#database[table] ?? []
+        let data = this.#database[table] ?? [] 
         if(filters) {
             data = data.filter((row) => {
                 return Object.entries(filters).some(([key, value]) => {
@@ -46,5 +45,11 @@ export class Database {
             this.#persist()
         }
     }
-    
+    delete(table, id) {
+        const rowIndex = this.#database[table].findIndex((row) => row.id === id)
+        if(rowIndex > -1) {
+            this.#database[table].splice(rowIndex, 1)
+            this.#persist()
+        }
+    }
 }
