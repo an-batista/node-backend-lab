@@ -1,7 +1,8 @@
 import http from "node:http"
+import { routeHandler } from "./middleware/routeHandler.js"
 
 const server = http.createServer((req, res) => {
-    return res.end("server created!")
+    routeHandler(req, res)
 })
 
 
