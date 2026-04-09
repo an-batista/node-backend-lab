@@ -7,6 +7,8 @@ Goal: develop APIs, authentication, CRUD, and professional server logic.
 
 -`support-tickets-api` - This API is designed to manage technical support tickets, allowing users to create, list, update, filter by status, and change ticket status from open to closed.
 
+-`task-manager-api` -  API for task management, applying create, read, update, partial update, and delete operations.
+
 
 ## How to use
 ### 1. Clone the repository: 
