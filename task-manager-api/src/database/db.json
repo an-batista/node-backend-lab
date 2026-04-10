@@ -1,1 +1,12 @@
-{}
+{
+    "tasks": [
+        {
+            "id": "7d964a0a-be95-43d3-a7e6-1ebf05b00665",
+            "title": "Estudar",
+            "description": "Estudar ate o cerebro fritar e evoluir de conhecimento",
+            "completed_at": null,
+            "created_at": "2026-04-10T23:34:07.291Z",
+            "updated_at": "2026-04-10T23:34:07.291Z"
+        }
+    ]
+}

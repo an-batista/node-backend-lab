@@ -1,5 +1,6 @@
 import { create } from "../controllers/create.js";
 import { read } from "../controllers/read.js";
+import { remove } from "../controllers/remove.js";
 import { update } from "../controllers/update.js";
 import { parseRoutePath } from "../utils/parseRoutePath.js";
 
@@ -18,6 +19,11 @@ export const tasks = [
         method: "PUT",
         path: "/tasks/:id",
         controller: update
+    },
+    {
+        method: "DELETE",
+        path: "/tasks/:id",
+        controller: remove
     }
 ].map((route) => ({
     ...route,
