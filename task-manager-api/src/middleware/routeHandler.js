@@ -11,11 +11,10 @@ export function routeHandler(req, res) {
     })
     if(route) {
         const routeParamsContent = url.match(route.path)
-        const { ...params } = routeParamsContent.groups
+        const { query, ...params } = routeParamsContent.groups
         req.params = params
-        req.params.query = req.params.query ? captureQueryParams(req.params.query) : {}
-        console.log(req.params.query)
+        req.query = query ? captureQueryParams(query) : {}
         return route.controller({ req, res, database })
-    } s
+    }
     return res.writeHead(404).end("Rota não encontrada!")
-}
+} 

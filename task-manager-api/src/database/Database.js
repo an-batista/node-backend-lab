@@ -16,11 +16,18 @@ export class Database {
     #persist() {
         fs.writeFile(DATABASE_PATH, JSON.stringify(this.#database))
     }
-
-    select(table) {
-        let data = this.#database[table] ?? []
-        return data
-    }
+ 
+        select(table, filters) {
+            let data = this.#database[table] ?? []
+            if(Object.keys(filters).length > 0) {
+                data = data.filter((row) => {
+                    return Object.entries(filters).some(([key, value]) => {
+                        return row[key].toLowerCase().includes(value.toLowerCase())
+                    })
+                })
+            }
+            return data
+        }
 
     create(table, data) {
         if(Array.isArray(this.#database[table])) {
