@@ -6,33 +6,33 @@ export class Database {
 
     constructor() {
         fs.readFile(DATABASE_PATH, "utf-8")
-        .then((data) => {
-            this.#database = JSON.parse(data)
-        }).catch(() => {
-            this.#persist()
-        })
+            .then((data) => {
+                this.#database = JSON.parse(data)
+            }).catch(() => {
+                this.#persist()
+            })
     }
 
     #persist() {
         fs.writeFile(DATABASE_PATH, JSON.stringify(this.#database))
     }
- 
-        select(table, filters) {
-            let data = this.#database[table] ?? []
-            if(Object.keys(filters).length > 0) {
-                data = data.filter((row) => {
-                    return Object.entries(filters).some(([key, value]) => {
-                        return row[key].toLowerCase().includes(value.toLowerCase())
-                    })
+
+    select(table, filters) {
+        let data = this.#database[table] ?? []
+        if (Object.keys(filters).length > 0) {
+            data = data.filter((row) => {
+                return Object.entries(filters).some(([key, value]) => {
+                    return row[key].toLowerCase().includes(value.toLowerCase())
                 })
-            }
-            return data
+            })
         }
+        return data
+    }
 
     create(table, data) {
-        if(Array.isArray(this.#database[table])) {
+        if (Array.isArray(this.#database[table])) {
             this.#database[table].push(data)
-        }else {
+        } else {
             this.#database[table] = [data]
         }
         this.#persist()
@@ -43,15 +43,24 @@ export class Database {
             this.#database[table][rowIndex] = {
                 ...this.#database[table][rowIndex],
                 ...data
-            } 
+            }
             this.#persist()
         }
     }
+    toggleTaskStatus(table, id) {
+        const rowIndex = this.#database[table].findIndex((row) => row.id === id) 
+        if (rowIndex > -1) {
+            const task = this.#database[table][rowIndex]
+            task.completed_at = task.completed_at ? null : new Date()
+        }
+        this.#persist()
+    }   
+ 
     delete(table, id) {
-       const rowIndex = this.#database[table].findIndex((row) => row.id === id)
-       if (rowIndex > -1) {
-        this.#database[table].splice(rowIndex, 1)
-       }
-       this.#persist()
+        const rowIndex = this.#database[table].findIndex((row) => row.id === id)
+        if (rowIndex > -1) {
+            this.#database[table].splice(rowIndex, 1)
+        }
+        this.#persist()
     }
 }    
