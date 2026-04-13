@@ -29,3 +29,7 @@ npm run dev
 Use a request client (Postman, Insomnia...) to fetch all tickets.
 
 For a complete list of routes and request formats, check the README inside each project.
+
+
+
+*This is a personal study repository, but you can use to your own study.
