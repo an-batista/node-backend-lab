@@ -1,0 +1,23 @@
+{
+  "name": "backend-lab",
+  "version": "1.0.0",
+  "description": "Repository for practicing backend development with Node.js. Goal: develop APIs, authentication, CRUD, and professional server logic.",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:tickets": "npm run dev -w support-tickets-api",
+    "dev:task": "npm run dev -w task-manager-api"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/an-batista/node-backend-lab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/an-batista/node-backend-lab/issues"
+  },
+  "homepage": "https://github.com/an-batista/node-backend-lab#readme"
+}
