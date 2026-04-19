@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "dev:tickets": "npm run dev -w support-tickets-api",
-    "dev:task": "npm run dev -w task-manager-api"
+    "dev:task": "npm run dev -w task-manager-api",
+    "dev:diet": "npm run dev -w diet-manager-api"
   },
   "repository": {
     "type": "git",
