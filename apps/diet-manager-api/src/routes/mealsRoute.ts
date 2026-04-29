@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import z from "zod";
+import z, { uuid } from "zod";
 import { db } from "../database";
 import { randomUUID } from "node:crypto";
 
@@ -7,14 +7,25 @@ import { randomUUID } from "node:crypto";
 
 export async function mealsRoutes(app: FastifyInstance) {
 
-    app.get("/meals", async (request, reply) => {
+    app.get("/", async (request, reply) => {
         const meals =  await db("meals").select()
         return {
             meals
         }
     })
 
-    app.post("/meals", async (request, reply) => {
+    app.get("/:id", async (request, reply) => {
+        const requestParamSchema = z.object({
+            id: uuid()
+        })
+        const { id } = requestParamSchema.parse(request.params)
+        const meal = await db("meals").where({ id }).first()
+        return {
+            meal
+        }
+    })
+
+    app.post("/", async (request, reply) => {
         const createMealsBodySchema =  z.object({
             name: z.string(),
             description: z.string(),
