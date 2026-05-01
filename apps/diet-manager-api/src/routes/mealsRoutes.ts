@@ -1,5 +1,5 @@
-import { FastifyInstance } from "fastify";
-import z, { uuid } from "zod";
+import { type FastifyInstance } from "fastify";
+import z, { object, uuid } from "zod";
 import { db } from "../database";
 import { randomUUID } from "node:crypto";
 
@@ -25,14 +25,40 @@ export async function mealsRoutes(app: FastifyInstance) {
         }
     })
 
+    app.put("/:id", async (request, reply) => {
+        const nonEmptyString = z.string().trim().min(1)
+         const requestParamSchema = z.object({
+            id: uuid()
+        })
+        const requestBodySchema = z.object({
+            name: nonEmptyString,
+            description: nonEmptyString,
+            is_on_diet: z.boolean()
+        })
+        .partial()
+        .refine((data) => Object.keys(data).length > 0, { message: "send at least one topic to update" })
+
+        const  { id } = requestParamSchema.parse(request.params)
+        const { name, description, is_on_diet } = requestBodySchema.parse(request.body)
+
+        await db("meals").where({ id }).first().update({
+            name,
+            description,
+            is_on_diet,
+            updated_at: db.fn.now()
+        })
+        return reply.status(204).send()
+    })
+
     app.post("/", async (request, reply) => {
+        const nonEmptyString = z.string().trim().min(1)
         const createMealsBodySchema =  z.object({
-            name: z.string(),
-            description: z.string(),
-            isOnDiet: z.boolean()
+            name: nonEmptyString,
+            description: nonEmptyString,
+            is_on_diet: z.boolean()
         })
 
-        const { name, description, isOnDiet} = createMealsBodySchema.parse(request.body)
+        const { name, description, is_on_diet} = createMealsBodySchema.parse(request.body)
 
         
 
@@ -41,7 +67,7 @@ export async function mealsRoutes(app: FastifyInstance) {
             id: randomUUID(),
             name,
             description,
-            is_on_diet: isOnDiet
+            is_on_diet
         })
 
         return reply.status(201).send()
