@@ -57,11 +57,7 @@ export async function mealsRoutes(app: FastifyInstance) {
             description: nonEmptyString,
             is_on_diet: z.boolean()
         })
-
         const { name, description, is_on_diet} = createMealsBodySchema.parse(request.body)
-
-        
-
         await db("meals")
         .insert({
             id: randomUUID(),
@@ -69,8 +65,18 @@ export async function mealsRoutes(app: FastifyInstance) {
             description,
             is_on_diet
         })
-
         return reply.status(201).send()
+    })
 
+    app.delete("/:id", async (request, reply) => {
+        const requestParamSchema = z.object({
+            id: uuid()
+        })
+        const { id } = requestParamSchema.parse(request.params)
+        await db("meals")
+        .where({ id })
+        .delete()
+        return reply.status(204).send()
     })
 }
+
