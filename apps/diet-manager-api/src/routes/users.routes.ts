@@ -23,4 +23,10 @@ export async function usersRoutes(app: FastifyInstance) {
         })
         return reply.status(201).send()
     })
+    app.get("/", async (request, reply) => {
+        const users = await db("users").select()
+        return {
+            users
+        }
+    })
 }
