@@ -11,19 +11,28 @@ export async function usersRoutes(app: FastifyInstance) {
         const requestBodySchema = z.object({
             name: z.string(),
             email: z.string(),
-            password: z.number()
+            password: z.string()
         })
 
         const { name, email, password } = requestBodySchema.parse(request.body)
 
-        
+        const sessionId = randomUUID()
+
+
 
         await db("users").insert({
             id: randomUUID(),
             name,
             email,
-            password
+            password,
+            session_id: sessionId
         })
+
+        reply.cookie("sessionId", sessionId, {
+            path: "/",
+            maxAge: 60 * 60 * 60 * 24 * 7
+        })
+
         return reply.status(201).send()
     })
 
