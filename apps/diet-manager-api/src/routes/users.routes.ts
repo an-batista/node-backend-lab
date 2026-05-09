@@ -15,6 +15,9 @@ export async function usersRoutes(app: FastifyInstance) {
         })
 
         const { name, email, password } = requestBodySchema.parse(request.body)
+
+        
+
         await db("users").insert({
             id: randomUUID(),
             name,
@@ -23,6 +26,8 @@ export async function usersRoutes(app: FastifyInstance) {
         })
         return reply.status(201).send()
     })
+
+
     app.get("/", async (request, reply) => {
         const users = await db("users").select()
         return {
