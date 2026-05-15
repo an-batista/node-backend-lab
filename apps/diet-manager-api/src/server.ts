@@ -2,6 +2,7 @@ import fastify from "fastify"
 import { mealsRoutes } from "./routes/meals.routes"
 import { usersRoutes } from "./routes/users.routes"
 import cookie from "@fastify/cookie"
+import { metricsRoutes } from "./routes/metrics.routes"
 
 const app = fastify()
 
@@ -14,7 +15,9 @@ app.register(usersRoutes, {
     prefix: "users"
 })
 
-
+app.register(metricsRoutes, {
+    prefix: "/meals/metrics"
+})
 
 app.listen({
     port: 3333
