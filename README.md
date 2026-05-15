@@ -9,6 +9,8 @@ Goal: develop APIs, authentication, CRUD, and professional server logic.
 
 -`task-manager-api` -  API for task management, applying create, read, update, partial update, and delete operations.
 
+-`diet-manager-api` - API for diet management
+
 
 ## How to use
 ### 1. Clone the repository: 
