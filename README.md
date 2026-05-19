@@ -9,7 +9,7 @@ Goal: develop APIs, authentication, CRUD, and professional server logic.
 
 -`task-manager-api` -  API for task management, applying create, read, update, partial update, and delete operations.
 
--`diet-manager-api` - API for diet management
+-`diet-manager-api` - API designed for diet and nutrition management, allowing users to create and manage meal
 
 
 ## How to use
