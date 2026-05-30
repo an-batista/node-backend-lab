@@ -29,3 +29,11 @@ PUT /meals/:id
 
 DELETE /meals/:id
 
+# Enviroment variables
+
+Create a .env file and add the following environment variables so the API can work properly:
+
+NODE_ENV=development
+DATABASE_URL="./db/app.db"
+
+
